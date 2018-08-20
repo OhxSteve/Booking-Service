@@ -3,13 +3,12 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cluster = require('cluster');
 const routes = require('./../routes');
+const numWorkers = require('os').cpus().length;
 require('newrelic');
 
 const app = express();
 
 if (cluster.isMaster) {
-  const numWorkers = require('os').cpus().length;
-
   console.log(`Master cluster setting up ${numWorkers} workers...`);
 
   for (let i = 0; i < numWorkers; i++) {
