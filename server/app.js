@@ -1,10 +1,14 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 const routes = require('./../routes');
+require('newrelic');
 
 const app = express();
 
 app.set('port', process.env.PORT || 3001);
+
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.redirect('/rooms/1');

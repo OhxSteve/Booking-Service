@@ -12,7 +12,7 @@ const createDataJSON = (id) => {
 
   dataItem.numberOfBookings = faker.random.number({
     min: 1,
-    max: 45,
+    max: 25,
   });
 
   dataItem.bookings = [];
@@ -108,14 +108,18 @@ const createDataJSON = (id) => {
   //   }
   return dataItem;
 };
+const data = [];
 const writeJSON = () => {
-  const out = fs.createWriteStream('./bookings.json');
-  const records = Array(1000000)
-    .fill()
-    .map((e, i) => JSON.stringify(createDataJSON(i)));
-  records.forEach((data) => {
-    out.write(`${data},\n`);
-  });
+  // fs.appendFileSync('./bookings.json');
+  // const records = Array(2000000)
+  //   .fill()
+  //   .map((e, i) => JSON.stringify(createDataJSON(i)));
+  // records.forEach((data) => {
+  //   out.write(`${data}\n`);
+  // });
+  for (let i = 1; i <= 10000000; i++) {
+    fs.appendFileSync('./bookings.json', `${JSON.stringify(createDataJSON(i))}\n`);
+  }
 };
 
 writeJSON();

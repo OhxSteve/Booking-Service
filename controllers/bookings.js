@@ -26,7 +26,11 @@ module.exports = {
   },
 
   put: (req, res) => {
-    db.Booking.findByIdAndUpdate(req.params.bookingId, req.body, { new: true }, (err, booking) => {
+    const roomId = req.params.id;
+    const bookings = req.body;
+    console.log({ bookings });
+    console.log({ roomId });
+    db.Booking.update({ roomId }, { $push: { bookings } }, { new: true }, (err, booking) => {
       if (err) {
         return res.status(500).send(err);
       }
@@ -34,7 +38,8 @@ module.exports = {
     });
   },
   delete: (req, res) => {
-    db.Booking.findByIdAndRemove(req.params.bookingId, (err, booking) => {
+    const roomId = req.params.id;
+    db.Booking.remove({ roomId }, (err, booking) => {
       if (err) return res.status(500).send(err);
       const response = {
         message: 'successfully deleted',

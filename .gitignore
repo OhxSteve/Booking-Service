@@ -38,3 +38,6 @@ bookings2.csv
 bookings3.csv
 bookings4.csv
 rooms.csv
+
+#new relic config
+newrelic.js
