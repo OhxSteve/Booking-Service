@@ -3,7 +3,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cluster = require('cluster');
 const routes = require('./../routes');
-
 require('newrelic');
 
 const app = express();
