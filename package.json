@@ -2,7 +2,7 @@
   "name": "bookingcomponent",
   "version": "1.0.0",
   "description": "an airbnb booking component",
-  "author": "Nicholas Vincent-Hill",
+  "author": "Steve Oh",
   "license": "",
   "engines": {
     "node": ">=6.13.0"
@@ -13,7 +13,9 @@
     "react-dev": "webpack -d --watch",
     "test": "jest",
     "start:pro": "node generate.js && node server/",
-    "build": "webpack -d && grunt deploy"
+    "build": "webpack -d && grunt deploy",
+    "redis": "redis-server --maxmemory 512mb --maxmemory-policy allkeys-lru",
+    "stress-test": "node seige.js"
   },
   "jest": {
     "collectCoverage": true,
@@ -39,7 +41,8 @@
     "pg": "^7.4.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-fontawesome": "^1.6.1"
+    "react-fontawesome": "^1.6.1",
+    "redis": "^2.8.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

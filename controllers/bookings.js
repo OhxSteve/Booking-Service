@@ -1,20 +1,34 @@
 const db = require('../models');
+const redisClient = require('redis').createClient;
+
+const redis = redisClient();
 
 module.exports = {
   get: (req, res, next) => {
     const roomId = req.params.id;
-    db.Booking.find({ roomId })
-      .exec()
-      .then((data) => {
-        if (!data || !data.length) {
-          next();
-        } else {
-          // console.log('sample items', data[0].bookings);
-          res.json(data);
-        }
-      })
-      .catch(next);
+    redis.get(roomId, (err, data) => {
+      if (err) {
+        res.json(err);
+      } else if (data) {
+        res.json(JSON.parse(data));
+      } else {
+        db.Booking.find({ roomId })
+          .exec()
+          .then((data) => {
+            if (!data || !data.length) {
+              next();
+            } else {
+              // console.log('sample items', data[0].bookings);
+              redis.set(roomId, JSON.stringify(data), () => {
+                res.json(data);
+              });
+            }
+          })
+          .catch(next);
+      }
+    });
   },
+
   post: (req, res, next) => {
     const newBooking = new db.Booking(req.body);
     newBooking.save((err) => {
