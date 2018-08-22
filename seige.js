@@ -2,11 +2,11 @@ const siege = require('siege');
 
 const randomNumbers = [];
 
-const random = (min, max) => Math.floor(Math.random() * max) + min;
+const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 const arrSize = 150000;
 for (let i = 0; i < arrSize; i += 1) {
-  randomNumbers.push(random(1, 10000000));
+  randomNumbers.push(random(9000000, 9500000));
 }
 
 let sieger = siege().on(3001);

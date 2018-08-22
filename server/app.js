@@ -1,10 +1,10 @@
+require('newrelic');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cluster = require('cluster');
-const routes = require('./../routes');
 const numWorkers = require('os').cpus().length;
-require('newrelic');
+const routes = require('./../routes');
 
 const app = express();
 
